@@ -32,10 +32,11 @@ describe('Job', () => {
       , timeoutMs = '20000000'
       , cb = () => { return 'hiya' }
       , v3 = 'does not matter'
+      , data = {a:"a",b:"b"}
 
-    job = new Job(code, timeoutMs, cb, v3)
+    job = new Job(code, timeoutMs, cb, v3, data)
 
-    expect(job).to.deep.equal({ code, timeoutMs, cb, v3 })
+    expect(job).to.deep.equal({ code, timeoutMs, cb, v3, data })
   })
 
   it('should use passed cb if provided', () => {
@@ -43,8 +44,10 @@ describe('Job', () => {
       , timeoutMs = '20000000'
       , cb = () => { return 'hiya' }
       , v3 = 'does not matter'
+      , data = {a:"a",b:"b"}
 
-    job = new Job(code, timeoutMs, cb, v3)
+
+    job = new Job(code, timeoutMs, cb, v3, data)
 
     expect(job.cb()).to.deep.equal(cb())
   })
@@ -54,8 +57,10 @@ describe('Job', () => {
       , timeoutMs = '20000000'
       , cb = null
       , v3 = 'does not matter'
+      , data = {a:"a",b:"b"}
 
-    job = new Job(code, timeoutMs, cb, v3)
+
+    job = new Job(code, timeoutMs, cb, v3, data)
 
     expect(job.cb()).to.deep.equal(mocks['lodash'].noop())
   })
