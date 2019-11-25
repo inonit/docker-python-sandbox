@@ -1,4 +1,4 @@
-FROM node:argon
+FROM node:erbium
 
 RUN ["adduser",  "--home",  "/usr/src/app", "--system", "sandboxuser"]
 RUN ["chown", "-R", "sandboxuser", "/usr/src/app"]
