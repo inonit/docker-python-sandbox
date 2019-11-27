@@ -1,3 +1,15 @@
+Fork from project https://github.com/christophetd/docker-python-sandbox
+Edited the docker image :
+- Replaced child-process by python-shell. Enabled json format sending-receiving data in running python script
+- Dockerfile : upgrade version to node:erbium (instead of node:argon)
+- deleted combined output from running python script
+
+
+Edited the docker-python-sandbox lib :
+- Added on attribute to job object: data in order to receive and send extra parameters (json object) to manipulate in python script
+- use json format instead of string
+- deleted handling combined output from docker
+
 [![Build Status](https://travis-ci.org/christophetd/docker-python-sandbox.svg)](https://travis-ci.org/christophetd/docker-python-sandbox)
 
 # Docker Python sandbox

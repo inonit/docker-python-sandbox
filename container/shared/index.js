@@ -23,7 +23,7 @@ app.post('/', function (req, res) {
 
   		// Write code to file
       fs.writeFileSync('./code.py', req.body.code);
-      var output = {stdout: {}, stderr: {}/*, combined: ''*/};
+      var output = {stdout: "", stderr: ""/*, combined: ''*/};
       var options={
         mode: 'json',
         pythonPath: req.body.v3 ? 'python3' : 'python',
