@@ -23,10 +23,15 @@ app.post('/', function (req, res) {
 
   		// Write code to file
       fs.writeFileSync('./code.py', req.body.code);
-      var output = {stdout: "", stderr: ""/*, combined: ''*/};
+      var output = {stdout: "", stderr: "",timedOut: false, isError: false, killedByContainer: false};
       var options={
         mode: 'json',
         pythonPath: req.body.v3 ? 'python3' : 'python',
+        stderrParser: function (stderr) { // with mode=json, without this parser
+          // error and stderr cannot be handled! The code will crashes (SyntaxError:
+          // Unexpected token F in JSON at position)
+          return stderr;
+        }
       };
       var pyshell = new PythonShell('./code.py', options);
       // sends a message to the Python script via stdin
@@ -43,16 +48,17 @@ app.post('/', function (req, res) {
       pyshell.on('message', function (message) {
         // should receive only one json response data
         output.stdout = message;
-        //output.combined += message;
 
-      }).on('stderr', function (stderr) {
-        // handle stderr (a line of text from stderr)
+/*      }).on('stderr', function (stderr) {
         output.stderr = stderr;
-        //output.combined += message;
-
+        // handle stderr line by line
+      }).on('error', function (error) {
+        // handle error line by line
+*/
       }).end(function (err,code,signal) {
         if (err){
-          // err handled in 'stderr' event
+          // err handling
+          output.stderr = err.stack
         }
         if (pyshell.exitSignal == 'SIGKILL' || signal == 'SIGKILL'){
           var result = _.extend(output, { timedOut: true, isError: true, killedByContainer: true });
