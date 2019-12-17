@@ -49,7 +49,8 @@ app.post('/', function (req, res) {
         // should receive only one json response data
         output.stdout = message;
 
-/*      }).on('stderr', function (stderr) {
+/*      // stderr/error event handler are not really required for the moment
+      }).on('stderr', function (stderr) {
         output.stderr = stderr;
         // handle stderr line by line
       }).on('error', function (error) {
