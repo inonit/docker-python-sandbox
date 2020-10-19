@@ -13,6 +13,6 @@ RUN chmod 755 /start.sh
 RUN apt-get update
 
 # Install python 3
-RUN apt-get install -y python3
+RUN apt-get install -y python3 && apt-get install -y vim
 
 CMD ["/start.sh"]
